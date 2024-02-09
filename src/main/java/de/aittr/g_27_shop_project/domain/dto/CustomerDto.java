@@ -14,6 +14,20 @@ public class CustomerDto {
   private String email;
   private CartDto cart;
 
+  public CustomerDto(int id, String name, int age, String email, CartDto cart) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.email = email;
+    this.cart = cart;
+  }
+
+    public CustomerDto(int id, String name, int age, String email) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.email = email;
+  }
   public CartDto getCart() {
     return cart;
   }
@@ -22,12 +36,6 @@ public class CustomerDto {
     this.cart = cart;
   }
 
-  public CustomerDto(int id, String name, int age, String email) {
-    this.id = id;
-    this.name = name;
-    this.age = age;
-    this.email = email;
-  }
 
   public int getId() {
     return id;

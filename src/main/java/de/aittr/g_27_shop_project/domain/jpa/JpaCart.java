@@ -19,6 +19,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 @Entity
 @Table(name = "cart")
 public class JpaCart implements Cart {
@@ -38,6 +39,7 @@ public class JpaCart implements Cart {
       inverseJoinColumns = @JoinColumn(name = "product_id")
   )
   private List<JpaProduct> products;
+  private static Logger logger = LoggerFactory.getLogger(JpaCart.class);
 
   @Override
   public int getId() {
@@ -74,7 +76,7 @@ public class JpaCart implements Cart {
   public List<Product> getProducts() {
     return new ArrayList<>(products);
   }
-  private Logger logger = LoggerFactory.getLogger(JpaCart.class);
+
 
   @Override
   public void setProducts(List<Product> products) {
@@ -91,16 +93,15 @@ public class JpaCart implements Cart {
 
   @Override
   public void addProduct(Product product) {
-    logger.info(String.format("Метод addProduct вызван. Добавляем продукт: %s " , product));
+    logger.info(String.format("Метод addProduct вызван. Добавляем продукт: %s ", product));
   }
 
   @Override
   public void deleteProductById(int Id) {
-    logger.info(String.format("Метод deleteProductById вызван. Удаляем продукт по Id: %d " , id));
-
+    logger.info(String.format("Метод deleteProductById вызван. Удаляем продукт по Id: %d ", id));
 
     logger.info(String.format("Продукт с Id %d успешно удален из корзины.", id));
-    }
+  }
 
 
   @Override
@@ -152,7 +153,8 @@ public class JpaCart implements Cart {
   @Override
   public String toString() {
     logger.info("Метод toString вызван.");
-    logger.info(String.format("Состояние объекта: id=%d, customer=%s, products=%s", id, customer, products));
+    logger.info(String.format("Состояние объекта: id=%d, customer=%s, products=%s", id, customer,
+        products));
     return "JpaCart{" +
         "id=" + id +
         ", customer=" + customer +

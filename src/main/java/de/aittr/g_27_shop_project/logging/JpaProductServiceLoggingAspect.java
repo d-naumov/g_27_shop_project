@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class JpaProductServiceLoggingAspect {
+
   private Logger logger = LoggerFactory.getLogger(JpaProductServiceLoggingAspect.class);
 
   @Pointcut("execution(* de.aittr.g_27_shop_project.services.jpa.JpaProductService.*(..))")
@@ -23,8 +24,9 @@ public class JpaProductServiceLoggingAspect {
 
   @Before("allServiceMethods()")
   public void beforeServiceMethod(JoinPoint joinPoint) {
-    logger.info(String.format("Метод %s вызван с аргументами: %s", joinPoint.getSignature().getName(),
-        Arrays.toString(joinPoint.getArgs())));
+    logger.info(
+        String.format("Метод %s вызван с аргументами: %s", joinPoint.getSignature().getName(),
+            Arrays.toString(joinPoint.getArgs())));
   }
 
   @After("allServiceMethods()")
@@ -34,11 +36,15 @@ public class JpaProductServiceLoggingAspect {
 
   @AfterReturning(pointcut = "allServiceMethods()", returning = "result")
   public void afterReturningServiceMethod(JoinPoint joinPoint, Object result) {
-    logger.info(String.format("Метод %s успешно вернул результат: %s", joinPoint.getSignature().getName(), result));
+    logger.info(
+        String.format("Метод %s успешно вернул результат: %s", joinPoint.getSignature().getName(),
+            result));
   }
 
   @AfterThrowing(pointcut = "allServiceMethods()", throwing = "e")
   public void afterThrowingServiceMethod(JoinPoint joinPoint, Exception e) {
-    logger.error(String.format("Метод %s выбросил исключение: %s", joinPoint.getSignature().getName(), e.getMessage()));
+    logger.error(
+        String.format("Метод %s выбросил исключение: %s", joinPoint.getSignature().getName(),
+            e.getMessage()));
   }
 }

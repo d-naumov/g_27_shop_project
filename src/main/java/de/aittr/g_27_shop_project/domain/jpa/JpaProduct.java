@@ -36,7 +36,7 @@ public class JpaProduct implements Product {
   private double price;
   @Column(name = "is_active")
   private boolean isActive;
-  private Logger logger = LoggerFactory.getLogger(JpaProduct.class);
+  private static Logger logger = LoggerFactory.getLogger(JpaProduct.class);
 
   public JpaProduct(int id, String name, double price, boolean isActive) {
     this.id = id;

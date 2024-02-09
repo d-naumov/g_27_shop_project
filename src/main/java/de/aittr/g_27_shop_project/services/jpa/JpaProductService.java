@@ -4,12 +4,14 @@ import de.aittr.g_27_shop_project.domain.dto.ProductDto;
 
 import de.aittr.g_27_shop_project.domain.jpa.JpaProduct;
 
+import de.aittr.g_27_shop_project.domain.jpa.Task;
 import de.aittr.g_27_shop_project.exception_handling.exceptions.FourthTestException;
 import de.aittr.g_27_shop_project.exception_handling.exceptions.NoActiveProducts;
 import de.aittr.g_27_shop_project.exception_handling.exceptions.NoIdException;
 import de.aittr.g_27_shop_project.exception_handling.exceptions.NoNameException;
 
 import de.aittr.g_27_shop_project.repositories.jpa.JpaProductRepository;
+import de.aittr.g_27_shop_project.scheduling.ScheduleExecutor;
 import de.aittr.g_27_shop_project.services.interfaces.ProductService;
 import de.aittr.g_27_shop_project.services.mapping.ProductMappingService;
 
@@ -35,21 +37,53 @@ public class JpaProductService implements ProductService {
     this.mappingService = mappingService;
   }
 
+//  @Override
+//  public ProductDto save(ProductDto product) {
+//    try {
+//      JpaProduct entity = mappingService.mapDtoToEntity(product);
+//      entity.setId(0);
+//      entity = repository.save(entity);
+//      return mappingService.mapEntityToDto(entity);
+//    } catch (Exception e) {
+//      throw new FourthTestException(e.getMessage());
+//    }
+//  }
+
   @Override
   public ProductDto save(ProductDto product) {
     try {
       JpaProduct entity = mappingService.mapDtoToEntity(product);
       entity.setId(0);
       entity = repository.save(entity);
+      ProductDto lastAddedProduct = getLastAddedProduct();
+      if (lastAddedProduct != null) {
+        String description = "Последний добавленный в БД продукт - " + lastAddedProduct.getName();
+        Task task = new Task(description);
+       // ScheduleExecutor.scheduleTaskExecution(task);
+        logger.info(description);
+      }
       return mappingService.mapEntityToDto(entity);
     } catch (Exception e) {
       throw new FourthTestException(e.getMessage());
     }
+  }
 
+  public ProductDto getLastAddedProduct() {
+    try {
+      List<ProductDto> allProducts = getAllActiveProducts();
+      if (!allProducts.isEmpty()) {
+        return allProducts.get(allProducts.size() - 1);
+      }
+    } catch (Exception e) {
+      logger.error("Ошибка при получении последнего добавленного товара", e);
+    }
+    return null;
   }
 
   @Override
   public List<ProductDto> getAllActiveProducts() {
+    Task task = new Task("Method getAllActiveProducts called ");
+   // ScheduleExecutor.scheduleTaskExecution(task);
     return repository.findAll()
         .stream()
         .filter(x -> x.isActive())

@@ -39,14 +39,16 @@ public class JpaCustomer implements Customer {
 
   @OneToOne(mappedBy = "customer")
   private JpaCart cart;
-  private Logger logger = LoggerFactory.getLogger(JpaCustomer.class);
+  private static Logger logger = LoggerFactory.getLogger(JpaCustomer.class);
+
   public JpaCustomer(int id, String name, int age, String email) {
     this.id = id;
     this.name = name;
     this.age = age;
     this.email = email;
     this.isActive = true;
-    logger.info(String.format("Конструктор JpaCustomer вызван с параметрами id=%d, name=%s, age=%d, email=%s",
+    logger.info(String.format(
+        "Конструктор JpaCustomer вызван с параметрами id=%d, name=%s, age=%d, email=%s",
         id, name, age, email));
   }
 
@@ -57,7 +59,7 @@ public class JpaCustomer implements Customer {
   }
 
   public void setAge(int age) {
-    logger.info(String.format("Метод setAge вызван с параметром price=%d",age));
+    logger.info(String.format("Метод setAge вызван с параметром price=%d", age));
     this.age = age;
   }
 
@@ -157,7 +159,8 @@ public class JpaCustomer implements Customer {
 
   @Override
   public String toString() {
-    logger.info(String.format("Метод toString вызван. Состояние объекта: id=%d, name=%s, age=%d, email=%s, isActive=%b",
+    logger.info(String.format(
+        "Метод toString вызван. Состояние объекта: id=%d, name=%s, age=%d, email=%s, isActive=%b",
         id, name, age, isActive));
     return "JpaCustomer{" +
         "id=" + id +

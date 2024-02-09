@@ -24,16 +24,19 @@ public class CommonAdvice {
     Response response = new Response(e.getMessage());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
+
   @ExceptionHandler(NoIdException.class)
   public ResponseEntity<Response> handleException(NoIdException e) {
     Response response = new Response(e.getMessage());
     return new ResponseEntity<>(response, HttpStatus.I_AM_A_TEAPOT);
   }
+
   @ExceptionHandler(NoNameException.class)
   public ResponseEntity<Response> handleException(NoNameException e) {
     Response response = new Response(e.getMessage());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
+
   @ExceptionHandler(NoActiveProducts.class)
   public ResponseEntity<Response> handleException(NoActiveProducts e) {
     Response response = new Response(e.getMessage());
