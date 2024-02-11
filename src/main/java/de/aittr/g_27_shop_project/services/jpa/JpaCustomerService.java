@@ -7,7 +7,9 @@ import de.aittr.g_27_shop_project.repositories.jpa.JpaCustomerRepository;
 import de.aittr.g_27_shop_project.services.interfaces.CustomerService;
 import de.aittr.g_27_shop_project.services.mapping.CustomerMappingService;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class JpaCustomerService implements CustomerService {
 
   private JpaCustomerRepository repository;

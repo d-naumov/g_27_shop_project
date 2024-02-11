@@ -67,18 +67,28 @@ public class JpaProductService implements ProductService {
       throw new FourthTestException(e.getMessage());
     }
   }
-
   public ProductDto getLastAddedProduct() {
     try {
-      List<ProductDto> allProducts = getAllActiveProducts();
-      if (!allProducts.isEmpty()) {
-        return allProducts.get(allProducts.size() - 1);
+      JpaProduct lastProduct = repository.findTopByOrderByIdDesc(); // Получение последнего продукта по ID
+      if (lastProduct != null) {
+        return mappingService.mapEntityToDto(lastProduct);
       }
     } catch (Exception e) {
       logger.error("Ошибка при получении последнего добавленного товара", e);
     }
     return null;
   }
+//  public ProductDto getLastAddedProduct() {
+//    try {
+//      List<ProductDto> allProducts = getAllActiveProducts();
+//      if (!allProducts.isEmpty()) {
+//        return allProducts.get(allProducts.size() - 1);
+//      }
+//    } catch (Exception e) {
+//      logger.error("Ошибка при получении последнего добавленного товара", e);
+//    }
+//    return null;
+//  }
 
   @Override
   public List<ProductDto> getAllActiveProducts() {

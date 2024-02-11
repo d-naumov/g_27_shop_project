@@ -12,4 +12,6 @@ public interface JpaProductRepository extends JpaRepository<JpaProduct, Integer>
 
   int countAllByIsActiveIsTrue();
 
+  JpaProduct findTopByOrderByIdDesc();
+
 }

@@ -8,9 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface TaskRepository extends JpaRepository<Task,Integer> {
 
-  @Query("SELECT t FROM Task t WHERE t.executedAt IS NOT NULL ORDER BY t.executedAt DESC")
-  List<Task> findLastCompletedTasks(@Param("limit") int limit);
+//  @Query("value = \"select * from task order by id desc limit :limit\", nativeQuery = true")
+//  List<Task> findLastCompletedTasks(@Param("limit") int limit);
 
+  @Query(value = "SELECT * FROM task ORDER BY id DESC LIMIT :limit", nativeQuery = true)
+  List<Task> findLastCompletedTasks(@Param("limit") int limit);
 
 
 }

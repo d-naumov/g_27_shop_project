@@ -6,8 +6,9 @@ import de.aittr.g_27_shop_project.domain.interfaces.Cart;
 import de.aittr.g_27_shop_project.domain.interfaces.Customer;
 import de.aittr.g_27_shop_project.domain.jdbc.CommonCustomer;
 import de.aittr.g_27_shop_project.domain.jpa.JpaCustomer;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class CustomerMappingService {
   private  CartMappingService cartMappingService;
 

@@ -1,7 +1,6 @@
 package de.aittr.g_27_shop_project.domain.dto;
 
 
-import de.aittr.g_27_shop_project.domain.interfaces.Cart;
 import java.util.Objects;
 
 public class CustomerDto {

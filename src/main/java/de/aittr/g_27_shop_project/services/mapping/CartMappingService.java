@@ -10,8 +10,9 @@ import de.aittr.g_27_shop_project.domain.jpa.JpaCart;
 import de.aittr.g_27_shop_project.domain.jpa.JpaProduct;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class CartMappingService {
 
   public CartDto mapEntityToDto(Cart cart) {
